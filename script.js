@@ -63,8 +63,14 @@ function drawNumber(number) {
     numberCtx.stroke();
 }
 
+function clearCanvases() {
+    numberCtx.clearRect(0, 0, numberCanvas.width, numberCanvas.height);
+    drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+}
+
 function getNumberPoints(number) {
     const points = {
+        0: [{ x: 100, y: 50 }, { x: 150, y: 100 }, { x: 150, y: 300 }, { x: 100, y: 350 }, { x: 50, y: 300 }, { x: 50, y: 100 }, { x: 100, y: 50 }],
         1: [{ x: 100, y: 50 }, { x: 100, y: 350 }],
         2: [{ x: 50, y: 100 }, { x: 150, y: 100 }, { x: 150, y: 200 }, { x: 50, y: 200 }, { x: 50, y: 350 }, { x: 150, y: 350 }],
         3: [{ x: 50, y: 100 }, { x: 150, y: 100 }, { x: 150, y: 200 }, { x: 50, y: 200 }, { x: 150, y: 200 }, { x: 150, y: 350 }, { x: 50, y: 350 }],
@@ -73,8 +79,7 @@ function getNumberPoints(number) {
         6: [{ x: 150, y: 50 }, { x: 50, y: 50 }, { x: 50, y: 350 }, { x: 150, y: 350 }, { x: 150, y: 200 }, { x: 50, y: 200 }],
         7: [{ x: 50, y: 50 }, { x: 150, y: 50 }, { x: 100, y: 350 }],
         8: [{ x: 75, y: 100 }, { x: 125, y: 100 }, { x: 125, y: 200 }, { x: 75, y: 200 }, { x: 75, y: 100 }, { x: 75, y: 200 }, { x: 125, y: 200 }, { x: 125, y: 300 }, { x: 75, y: 300 }, { x: 75, y: 200 }],
-        9: [{ x: 150, y: 300 }, { x: 50, y: 300 }, { x: 50, y: 100 }, { x: 150, y: 100 }, { x: 150, y: 350 }, { x: 50, y: 350 }],
-        10: [{ x: 50, y: 50 }, { x: 50, y: 350 }, { x: 100, y: 50 }, { x: 100, y: 350 }, { x: 150, y: 50 }, { x: 150, y: 350 }]
+        9: [{ x: 150, y: 300 }, { x: 50, y: 300 }, { x: 50, y: 100 }, { x: 150, y: 100 }, { x: 150, y: 350 }, { x: 50, y: 350 }]
     };
     return points[number] || [];
 }
