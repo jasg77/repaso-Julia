@@ -2,6 +2,7 @@ const canvas = document.getElementById('drawingCanvas');
 const ctx = canvas.getContext('2d');
 let isDrawing = false;
 let points = [];
+let currentNumberPoints = [];
 
 canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mousemove', draw);
@@ -16,7 +17,6 @@ function startDrawing(e) {
     e.preventDefault();
     isDrawing = true;
     points = [];
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     ctx.strokeStyle = 'pink';
     ctx.lineWidth = 5;
@@ -50,8 +50,8 @@ function drawNumber(number) {
     ctx.beginPath();
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
-    const numberPoints = getNumberPoints(number);
-    numberPoints.forEach((point, index) => {
+    currentNumberPoints = getNumberPoints(number);
+    currentNumberPoints.forEach((point, index) => {
         if (index === 0) {
             ctx.moveTo(point.x, point.y);
         } else {
@@ -76,4 +76,9 @@ function getNumberPoints(number) {
     };
     return points[number] || [];
 }
+
+// Prevent scrolling on touch devices
+document.body.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+}, { passive: false });
 
