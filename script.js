@@ -1,25 +1,26 @@
-const canvas = document.getElementById('drawingCanvas');
-const ctx = canvas.getContext('2d');
+const numberCanvas = document.getElementById('numberCanvas');
+const numberCtx = numberCanvas.getContext('2d');
+const drawingCanvas = document.getElementById('drawingCanvas');
+const drawingCtx = drawingCanvas.getContext('2d');
 let isDrawing = false;
 let points = [];
-let currentNumberPoints = [];
 
-canvas.addEventListener('mousedown', startDrawing);
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', stopDrawing);
-canvas.addEventListener('mouseout', stopDrawing);
-canvas.addEventListener('touchstart', startDrawing, { passive: false });
-canvas.addEventListener('touchmove', draw, { passive: false });
-canvas.addEventListener('touchend', stopDrawing);
-canvas.addEventListener('touchcancel', stopDrawing);
+drawingCanvas.addEventListener('mousedown', startDrawing);
+drawingCanvas.addEventListener('mousemove', draw);
+drawingCanvas.addEventListener('mouseup', stopDrawing);
+drawingCanvas.addEventListener('mouseout', stopDrawing);
+drawingCanvas.addEventListener('touchstart', startDrawing, { passive: false });
+drawingCanvas.addEventListener('touchmove', draw, { passive: false });
+drawingCanvas.addEventListener('touchend', stopDrawing);
+drawingCanvas.addEventListener('touchcancel', stopDrawing);
 
 function startDrawing(e) {
     e.preventDefault();
     isDrawing = true;
     points = [];
-    ctx.beginPath();
-    ctx.strokeStyle = 'pink';
-    ctx.lineWidth = 5;
+    drawingCtx.beginPath();
+    drawingCtx.strokeStyle = 'pink';
+    drawingCtx.lineWidth = 5;
     addPoint(e);
 }
 
@@ -27,52 +28,52 @@ function draw(e) {
     if (!isDrawing) return;
     e.preventDefault();
     addPoint(e);
-    ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
-    ctx.stroke();
+    drawingCtx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+    drawingCtx.stroke();
 }
 
 function stopDrawing(e) {
     if (!isDrawing) return;
     e.preventDefault();
     isDrawing = false;
-    ctx.closePath();
+    drawingCtx.closePath();
 }
 
 function addPoint(e) {
-    const rect = canvas.getBoundingClientRect();
+    const rect = drawingCanvas.getBoundingClientRect();
     const x = (e.clientX || e.touches[0].clientX) - rect.left;
     const y = (e.clientY || e.touches[0].clientY) - rect.top;
     points.push({ x, y });
 }
 
 function drawNumber(number) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.strokeStyle = 'black';
-    ctx.lineWidth = 2;
-    currentNumberPoints = getNumberPoints(number);
-    currentNumberPoints.forEach((point, index) => {
+    numberCtx.clearRect(0, 0, numberCanvas.width, numberCanvas.height);
+    numberCtx.beginPath();
+    numberCtx.strokeStyle = 'black';
+    numberCtx.lineWidth = 2;
+    const numberPoints = getNumberPoints(number);
+    numberPoints.forEach((point, index) => {
         if (index === 0) {
-            ctx.moveTo(point.x, point.y);
+            numberCtx.moveTo(point.x, point.y);
         } else {
-            ctx.lineTo(point.x, point.y);
+            numberCtx.lineTo(point.x, point.y);
         }
     });
-    ctx.stroke();
+    numberCtx.stroke();
 }
 
 function getNumberPoints(number) {
     const points = {
-        1: [{ x: 200, y: 50 }, { x: 200, y: 350 }],
-        2: [{ x: 100, y: 100 }, { x: 300, y: 100 }, { x: 300, y: 200 }, { x: 100, y: 200 }, { x: 100, y: 350 }, { x: 300, y: 350 }],
-        3: [{ x: 100, y: 100 }, { x: 300, y: 100 }, { x: 300, y: 200 }, { x: 100, y: 200 }, { x: 300, y: 200 }, { x: 300, y: 350 }, { x: 100, y: 350 }],
-        4: [{ x: 300, y: 50 }, { x: 100, y: 200 }, { x: 300, y: 200 }, { x: 300, y: 350 }],
-        5: [{ x: 300, y: 50 }, { x: 100, y: 50 }, { x: 100, y: 200 }, { x: 300, y: 200 }, { x: 300, y: 350 }, { x: 100, y: 350 }],
-        6: [{ x: 300, y: 50 }, { x: 100, y: 50 }, { x: 100, y: 350 }, { x: 300, y: 350 }, { x: 300, y: 200 }, { x: 100, y: 200 }],
-        7: [{ x: 100, y: 50 }, { x: 300, y: 50 }, { x: 200, y: 350 }],
-        8: [{ x: 150, y: 100 }, { x: 250, y: 100 }, { x: 250, y: 200 }, { x: 150, y: 200 }, { x: 150, y: 100 }, { x: 150, y: 200 }, { x: 250, y: 200 }, { x: 250, y: 300 }, { x: 150, y: 300 }, { x: 150, y: 200 }],
-        9: [{ x: 300, y: 300 }, { x: 100, y: 300 }, { x: 100, y: 100 }, { x: 300, y: 100 }, { x: 300, y: 350 }, { x: 100, y: 350 }],
-        10: [{ x: 100, y: 50 }, { x: 100, y: 350 }, { x: 200, y: 50 }, { x: 200, y: 350 }, { x: 300, y: 50 }, { x: 300, y: 350 }]
+        1: [{ x: 100, y: 50 }, { x: 100, y: 350 }],
+        2: [{ x: 50, y: 100 }, { x: 150, y: 100 }, { x: 150, y: 200 }, { x: 50, y: 200 }, { x: 50, y: 350 }, { x: 150, y: 350 }],
+        3: [{ x: 50, y: 100 }, { x: 150, y: 100 }, { x: 150, y: 200 }, { x: 50, y: 200 }, { x: 150, y: 200 }, { x: 150, y: 350 }, { x: 50, y: 350 }],
+        4: [{ x: 150, y: 50 }, { x: 50, y: 200 }, { x: 150, y: 200 }, { x: 150, y: 350 }],
+        5: [{ x: 150, y: 50 }, { x: 50, y: 50 }, { x: 50, y: 200 }, { x: 150, y: 200 }, { x: 150, y: 350 }, { x: 50, y: 350 }],
+        6: [{ x: 150, y: 50 }, { x: 50, y: 50 }, { x: 50, y: 350 }, { x: 150, y: 350 }, { x: 150, y: 200 }, { x: 50, y: 200 }],
+        7: [{ x: 50, y: 50 }, { x: 150, y: 50 }, { x: 100, y: 350 }],
+        8: [{ x: 75, y: 100 }, { x: 125, y: 100 }, { x: 125, y: 200 }, { x: 75, y: 200 }, { x: 75, y: 100 }, { x: 75, y: 200 }, { x: 125, y: 200 }, { x: 125, y: 300 }, { x: 75, y: 300 }, { x: 75, y: 200 }],
+        9: [{ x: 150, y: 300 }, { x: 50, y: 300 }, { x: 50, y: 100 }, { x: 150, y: 100 }, { x: 150, y: 350 }, { x: 50, y: 350 }],
+        10: [{ x: 50, y: 50 }, { x: 50, y: 350 }, { x: 100, y: 50 }, { x: 100, y: 350 }, { x: 150, y: 50 }, { x: 150, y: 350 }]
     };
     return points[number] || [];
 }
