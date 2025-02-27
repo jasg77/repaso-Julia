@@ -6,11 +6,14 @@ let points = [];
 canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', stopDrawing);
-canvas.addEventListener('touchstart', startDrawing);
-canvas.addEventListener('touchmove', draw);
+canvas.addEventListener('mouseout', stopDrawing);
+canvas.addEventListener('touchstart', startDrawing, { passive: false });
+canvas.addEventListener('touchmove', draw, { passive: false });
 canvas.addEventListener('touchend', stopDrawing);
+canvas.addEventListener('touchcancel', stopDrawing);
 
 function startDrawing(e) {
+    e.preventDefault();
     isDrawing = true;
     points = [];
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -22,12 +25,15 @@ function startDrawing(e) {
 
 function draw(e) {
     if (!isDrawing) return;
+    e.preventDefault();
     addPoint(e);
     ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
     ctx.stroke();
 }
 
-function stopDrawing() {
+function stopDrawing(e) {
+    if (!isDrawing) return;
+    e.preventDefault();
     isDrawing = false;
     ctx.closePath();
 }
@@ -70,3 +76,4 @@ function getNumberPoints(number) {
     };
     return points[number] || [];
 }
+
