@@ -66,6 +66,7 @@ function drawNumber(number) {
 function clearCanvases() {
     numberCtx.clearRect(0, 0, numberCanvas.width, numberCanvas.height);
     drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+    location.reload(); // Reinicia la aplicación
 }
 
 function getNumberPoints(number) {
@@ -88,4 +89,5 @@ function getNumberPoints(number) {
 document.body.addEventListener('touchmove', function(e) {
     e.preventDefault();
 }, { passive: false });
+
 
