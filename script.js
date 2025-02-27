@@ -48,6 +48,7 @@ function addPoint(e) {
 
 function drawNumber(number) {
     numberCtx.clearRect(0, 0, numberCanvas.width, numberCanvas.height);
+    drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
     numberCtx.beginPath();
     numberCtx.strokeStyle = 'black';
     numberCtx.lineWidth = 2;
